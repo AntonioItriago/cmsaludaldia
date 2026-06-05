@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Médico Salud al Día - Jornada Promocional</title>
+    <style>
+        :root {
+            --primary-color: #0f7a45;
+            --secondary-color: #fdb813;
+            --dark-color: #1a1a1a;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
+            background-image: url('fondo.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin: 5px 0;
+            font-size: 24px;
+        }
+
+        .promo-banner {
+            background-color: var(--dark-color);
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .promo-banner h2 {
+            color: var(--secondary-color);
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .price-tag {
+            background: var(--secondary-color);
+            color: var(--dark-color);
+            font-size: 32px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .includes-section h3 {
+            color: var(--primary-color);
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .includes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .includes-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .includes-list li::before {
+            content: "✓";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .branches {
+            display: flex;
+            justify-content: space-between;
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .branch-col {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .branch-title {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebd58;
+        }
+
+        .btn-appointment {
+            background-color: var(--primary-color);
+        }
+
+        .btn-appointment:hover {
+            background-color: #0b5e34;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0b5e34;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>CENTRO MÉDICO SALUD AL DÍA</h1>
+        <small>Promotor: Antonio Itriago</small>
+    </div>
+
+    <div class="promo-banner">
+        <h2>SALUD PERFECTA PARA TI Y TU FAMILIA</h2>
+        <p>Ahorrate hasta un 70%</p>
+        <div class="price-tag">MONTO A PAGAR: $21 BCV</div>
+    </div>
+
+    <div class="includes-section">
+        <h3>¿QUÉ INCLUYE?</h3>
+        <ul class="includes-list">
+            <li>1 Consulta Médica.</li>
+            <li>1 Electrocardiograma.</li>
+            <li>1 Hematología Completa.</li>
+            <li>1 Ecografía a elegir (Renal, Prostático, Tiroideo, Mamario S/P, Vesical).</li>
+            <li>Oximetría y Glicemia Capilar.</li>
+            <li>1 Dosis de Sueroterapia (Dosis indicada por el doctor).</li>
+        </ul>
+    </div>
+
+    <div class="branches">
+        <div class="branch-col">
+            <span class="branch-title">BARCELONA</span><br>
+            Av. Intercomunal Jorge Rodríguez, C.C. Colonial, Piso 1, Ofc. 14 (Movilnet).
+        </div>
+        <div class="branch-col">
+            <span class="branch-title">PUERTO LA CRUZ</span><br>
+            Av. 5 de Julio con Calle Los Cocos, Edif. Marytania, Planta Baja (Pastelitos Yeli).
+        </div>
+    </div>
+
+    <div class="actions">
+        <a href="https://wa.me/584122525407?text=Hola,%20solicito%20más%20información%20sobre%20la%20jornada%20promocional%20de%20$21" class="btn btn-whatsapp" target="_blank">Solicitar más información</a>
+        <button class="btn btn-appointment" onclick="openModal()">Agendar Cita</button>
+    </div>
+</div>
+
+<div class="modal" id="appointmentModal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3 style="color: var(--primary-color); margin-top: 0;">Datos del Paciente</h3>
+        
+        <form id="appointmentForm" onsubmit="sendAppointment(event)">
+            <div class="form-group">
+                <label for="nombre">Nombre del Paciente</label>
+                <input type="text" id="nombre" placeholder="Ej: María" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="apellido">Apellido del Paciente</label>
+                <input type="text" id="apellido" placeholder="Ej: Rondón" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cedula">Cédula del Paciente</label>
+                <input type="text" id="cedula" placeholder="Ej: 28990011" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefono">Teléfono de Contacto</label>
+                <input type="tel" id="telefono" placeholder="Ej: 04245559900" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="fecha">Fecha Prevista Asistencia</label>
+                <input type="date" id="fecha" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="sede">Seleccione Sede</label>
+                <select id="sede" required>
+                    <option value="Puerto la Cruz">Puerto la Cruz</option>
+                    <option value="Barcelona">Barcelona</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="promocion">Promoción Aplicable</label>
+                <select id="promocion">
+                    <option value="Promoción Apertura: JORNADA PROMOCIONAL 21$">Promoción Apertura: JORNADA PROMOCIONAL 21$</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="submit-btn">Enviar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('appointmentModal');
+
+    function openModal() {
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    // Cerrar si se hace clic fuera del contenido del modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    function sendAppointment(event) {
+        event.preventDefault();
+        
+        // Confirmación nativa
+        const confirmar = confirm("¿Está seguro de que desea confirmar la cita y enviar los datos por WhatsApp?");
+        
+        if (confirmar) {
+            const nombre = document.getElementById('nombre').value;
+            const apellido = document.getElementById('apellido').value;
+            const cedula = document.getElementById('cedula').value;
+            const telefono = document.getElementById('telefono').value;
+            const fecha = document.getElementById('fecha').value;
+            const sede = document.getElementById('sede').value;
+            const promocion = document.getElementById('promocion').value;
+            
+            // Construcción del mensaje para WhatsApp
+            const baseText = `*SOLICITUD DE CITA - SALUD AL DÍA*\n\n` +
+                             `*Paciente:* ${nombre} ${apellido}\n` +
+                             `*Cédula:* ${cedula}\n` +
+                             `*Teléfono:* ${telefono}\n` +
+                             `*Fecha Prevista:* ${fecha}\n` +
+                             `*Sede:* ${sede}\n` +
+                             `*Promoción:* ${promocion}`;
+            
+            const encodedText = encodeURIComponent(baseText);
+            const whatsappUrl = `https://wa.me/584122525407?text=${encodedText}`;
+            
+            // Abre WhatsApp en una pestaña nueva
+            window.open(whatsappUrl, '_blank');
+            closeModal();
+        }
+    }
+</script>
+
+</body>
+</html>
